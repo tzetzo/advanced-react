@@ -8,14 +8,26 @@ export const saveComment = (comment) => {
 		};
 };
 
-export const fetchComments = () => async (dispatch, getState) => {
-		const response = await axios.get('http://jsonplaceholder.typicode.com/albums')
+// using our custom middleware!
+export const fetchComments = () => {
+		const response = axios.get('http://jsonplaceholder.typicode.com/albums')
 
-		dispatch({
+		return {
 			type: FETCH_COMMENTS,
 			payload: response
-		});
+		};
 };
+
+// using redux thunk
+// export const fetchComments = () => async (dispatch, getState) => {
+// 		const response = await axios.get('http://jsonplaceholder.typicode.com/albums')
+//
+// 		dispatch({
+// 			type: FETCH_COMMENTS,
+// 			payload: response
+// 		});
+// };
+
 
 export const changeAuth = (isLoggedIn) => {
 		return {
