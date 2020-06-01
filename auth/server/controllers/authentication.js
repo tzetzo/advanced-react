@@ -4,13 +4,15 @@ module.exports.signup = async function(req, res, next) {
   const email = req.body.email;
   const password = req.body.password;
 
-  if(!email || !password){
-    return res.status(422).send({error: 'You must provide email and password'})
+  if (!email || !password) {
+    return res
+      .status(422)
+      .send({ error: "You must provide email and password" });
   }
 
   try {
     // See if a user with a given email exists
-    const existingUser = await User.findOne({ email })
+    const existingUser = await User.findOne({ email });
 
     // If a user with email does exist return an error
     if (existingUser) {
@@ -27,9 +29,15 @@ module.exports.signup = async function(req, res, next) {
 
     const token = await user.generateAuthToken();
     // Respond to a request indicating the user was created
-    res.json({token:token});
+    res.json({ token: token });
   } catch (error) {
     res.status(400).send(error); //https://httpstatuses.com; also inform the user he made a bad request(wrong password format etc)
   }
+};
 
+module.exports.signin = async function(req, res, next) {
+  // User has already had their email and password auth'd
+  // We just need to give them a token
+  const token = await req.user.generateAuthToken();
+  res.send({token})
 };
