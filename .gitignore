@@ -1,3 +1,5 @@
 /auth/server/node_modules/
 /testing/node_modules/
 /HOC/node_modules/
+auth/server/config.js
+auth/server/config/dev.env

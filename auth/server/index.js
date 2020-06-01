@@ -3,6 +3,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const router = require("./router");
+const mongoose = require("mongoose");
+
+// DB setup
+mongoose.connect(
+  process.env.MONGODB_URL,
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
+);
 
 const app = express();
 
@@ -15,7 +22,7 @@ app.use(bodyParser.json({ type: "*/*" })); // parses incoming requests assuming 
 router(app);
 
 // Server setup
-const port = process.env.PORT || 3090;
+const port = process.env.PORT || process.env.PORT;
 
 app.listen(port, () => {
   console.log("Sever listening on: ", port);
