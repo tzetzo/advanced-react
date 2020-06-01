@@ -38,6 +38,10 @@ module.exports.signup = async function(req, res, next) {
 module.exports.signin = async function(req, res, next) {
   // User has already had their email and password auth'd
   // We just need to give them a token
-  const token = await req.user.generateAuthToken();
-  res.send({token})
+  try{
+    const token = await req.user.generateAuthToken();
+    res.send({token})
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };

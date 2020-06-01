@@ -16,6 +16,10 @@ const localLogin = new LocalStrategy({ usernameField: "email" }, async function(
   // otherwise, call done with false
   try {
     const user = await User.findByCredentials(email, password);
+    if (!user) {
+      return done(null, false); // no error, but user not found
+    }
+
     return done(null, user); // here Passport assigns the user to req.user
   } catch (error) {
     return done(error);
