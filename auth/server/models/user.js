@@ -15,7 +15,7 @@ const userSchema = new Schema({
 userSchema.methods.generateAuthToken = async function() {
   const user = this;
   //create the JWT:
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET); //{expiresIn: '7 days'} as third parameter
+  const token = jwt.sign({ _id: user._id.toString(), iat: new Date().getTime() }, process.env.JWT_SECRET); //{expiresIn: '7 days'} as third parameter
   //add the JWT to the user tokens field
   // user.tokens = user.tokens.concat({ token });
   //save the user with the new token to DB:
