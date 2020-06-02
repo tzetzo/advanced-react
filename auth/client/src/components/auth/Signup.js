@@ -21,13 +21,18 @@ class Signup extends Component {
           <label>Password</label>
           <Field name="password" type="password" component="input" autoComplete="none" />
         </fieldset>
+        <div>{this.props.errorMessage}</div>
         <button>Sign up</button>
       </form>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {errorMessage: state.auth.errorMessage}
+}
+
 export default compose( //apply multiple HOCs to a single Component
-  connect(null, actions),
+  connect(mapStateToProps, actions),
   reduxForm({form: 'signup'})
 )(Signup);
