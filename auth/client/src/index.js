@@ -12,7 +12,9 @@ import Welcome from './components/Welcome';
 import Signup from './components/auth/Signup';
 import Feature from './components/Feature';
 
-const store = createStore(reducers,{}, applyMiddleware(reduxThunk))
+const store = createStore(reducers,{
+  auth: { authenticated: localStorage.getItem('token') } //save JWT into the Store if in localStorage on app boot up/page refresh
+}, applyMiddleware(reduxThunk))
 
 ReactDOM.render(
   <Provider store={store}>
