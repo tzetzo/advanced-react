@@ -25,7 +25,7 @@ module.exports.signup = async function(req, res, next) {
       password
     });
 
-    await user.save();
+    await user.save(); //calls userSchema.pre("save") to encrypt the password from inside /models/user behind the scenes
 
     const token = await user.generateAuthToken();
     // Respond to a request indicating the user was created
